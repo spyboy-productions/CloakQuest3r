@@ -76,5 +76,5 @@ CloudScan simplifies the process of assessing website security by providing a cl
 
 ### ⭔ Snapshots:
 ---
-
+<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/746328746491117611/1170359842687418488/Screenshot_2023-11-04_at_7.21.44_PM.png" />
 
