@@ -64,6 +64,10 @@ Requirements:
 3. If Cloudflare is detected, CloudScan will scan for subdomains and identify their real IP addresses.
 
 4. You will receive detailed output, including the number of subdomains scanned, the total number of subdomains found, and the time taken for the scan.
+   
+5. Any real IP addresses found will be displayed, allowing you to conduct further analysis and penetration testing.
+
+CloudScan simplifies the process of assessing website security by providing a clear, organized, and informative report. Use it to enhance your security assessments, identify potential vulnerabilities, and secure your web assets.
 
 ---
 
@@ -73,6 +77,4 @@ Requirements:
 ### ⭔ Snapshots:
 ---
 
-5. Any real IP addresses found will be displayed, allowing you to conduct further analysis and penetration testing.
 
-CloudScan simplifies the process of assessing website security by providing a clear, organized, and informative report. Use it to enhance your security assessments, identify potential vulnerabilities, and secure your web assets.
