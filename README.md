@@ -40,6 +40,14 @@ With CloakQuest3r, you can confidently evaluate website security, unveil hidden 
 
 - Still in the development phase, sometimes it can't detect the real Ip.
 
+- CloakQuest3r combines multiple indicators to uncover real IP addresses behind Cloudflare. While subdomain scanning is a part of the process, we do not assume that all subdomains' A records point to the target host. The tool is designed to provide valuable insights but may not work in every scenario. We welcome any specific suggestions for improvement. 
+
+1. False Negatives: CloakReveal3r may not always accurately identify the real IP address behind Cloudflare, particularly for websites with complex network configurations or strict security measures.
+
+2. Dynamic Environments: Websites' infrastructure and configurations can change over time. The tool may not capture these changes, potentially leading to outdated information.
+
+3. Subdomain Variation: While the tool scans subdomains, it doesn't guarantee that all subdomains' A records will point to the primary host. Some subdomains may also be protected by Cloudflare.
+
 ```
 <h4 align="center"> This tool is a Proof of Concept and is for Educational Purposes Only. </h4> 
 
