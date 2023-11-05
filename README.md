@@ -17,6 +17,8 @@
   
 </p>
 
+<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/746328746491117611/1170590177626951780/Screenshot_2023-11-05_at_10.13.28_AM.png" />
+
 <be>
 
 CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true IP address of websites safeguarded by Cloudflare, a widely adopted web security and performance enhancement service. Its core mission is to accurately discern the actual IP address of web servers that are concealed behind Cloudflare's protective shield. Subdomain scanning is employed as a key technique in this pursuit. This tool is an invaluable resource for penetration testers, security professionals, and web administrators seeking to perform comprehensive security assessments and identify vulnerabilities that may be obscured by Cloudflare's security measures.
