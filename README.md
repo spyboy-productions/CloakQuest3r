@@ -89,7 +89,7 @@ CloudScan simplifies the process of assessing website security by providing a cl
 
 #### Run It Online:
 
-Run on online replit.com : https://replit.com/@spyb0y/CloakQuest3r
+Run it online on replit.com : https://replit.com/@spyb0y/CloakQuest3r
 
 ---
 
