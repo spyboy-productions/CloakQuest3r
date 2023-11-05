@@ -32,6 +32,13 @@ CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true 
 
 With CloakQuest3r, you can confidently evaluate website security, unveil hidden vulnerabilities, and secure your web assets by disclosing the true IP address concealed behind Cloudflare's protective layers.
 
+#### Limitation
+
+```diff
+
+- Still in the development phase, sometimes it can't detect the real Ip.
+
+```
 <h4 align="center"> This tool is a Proof of Concept and is for Educational Purposes Only. </h4> 
 
 ---
