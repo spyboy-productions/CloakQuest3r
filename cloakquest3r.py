@@ -68,7 +68,7 @@ def find_subdomains(domain, filename, timeout=20):
     subdomains_found = []
     subdomains_lock = threading.Lock()
 
-    # Rest of the code for subdomain scanning remains unchanged.
+    # subdomain scanning...
 
     def check_subdomain(subdomain):
         subdomain_url = f"https://{subdomain}.{domain}"
