@@ -17,7 +17,7 @@
   
 </p>
 
-<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/746328746491117611/1170590177626951780/Screenshot_2023-11-05_at_10.13.28_AM.png" />
+<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1182112665364074536/cloak.png" />
 
 <be>
 
