@@ -104,6 +104,14 @@ Run it online on replit.com : https://replit.com/@spyb0y/CloakQuest3r
 
 Contributions and feature requests are welcome! If you encounter any issues or have ideas for improvement, feel free to open an issue or submit a pull request.
 
+#### ToDo
+
+- Check IpHistory using DNS records/DNS History, mx record  
+- Add free Securitytrails API: https://securitytrails.com/
+- viewdns API: https://viewdns.info/iphistory/?domain=spyboy.blog
+- Discover IP through API calls (POC)
+
+
 #### 💬 If having an issue [Chat here](https://discord.gg/ZChEmMwE8d)
 [![Discord Server](https://discord.com/api/guilds/726495265330298973/embed.png)](https://discord.gg/ZChEmMwE8d)
 
