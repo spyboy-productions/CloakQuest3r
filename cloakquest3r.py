@@ -4,6 +4,8 @@ import requests
 from colorama import init, Fore
 import threading
 import time
+from bs4 import BeautifulSoup
+
 
 twitter_url = 'https://spyboy.in/twitter'
 discord = 'https://spyboy.in/Discord'
@@ -129,6 +131,35 @@ def get_real_ip(host):
         return real_ip
     except socket.gaierror:
         return None
+    
+def get_domain_historical_ip_address(domain):
+    url = f"https://viewdns.info/iphistory/?domain={domain}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+   
+    }
+    response = requests.get(url, headers=headers)
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+    table = soup.find('table', {'border': '1'})
+
+    if table:
+        rows = table.find_all('tr')[2:]
+        print(f"\n{Y}[+] {Y}Historical IP Address Info for {G}{domain}:{W}")
+        for row in rows:
+            columns = row.find_all('td')
+            ip_address = columns[0].text.strip()
+            location = columns[1].text.strip()
+            owner = columns[2].text.strip()
+            last_seen = columns[3].text.strip()
+            print(f"{Y}  [+] {C}IP Address: {G}{ip_address}{W}")
+            print(f"{Y}   ╰➤ {C}Location: {G}{location}{W}")
+            print(f"{Y}   ╰➤ {C}Owner: {G}{owner}{W}")
+            print(f"{Y}   ╰➤ {C}Last Seen: {G}{last_seen}{W}")
+    else:
+        None
+
 
 if __name__ == "__main__":
     domain = sys.argv[1]  # pass domain in command-line argument ex: python3 cloakquest3r.py top.gg
@@ -137,7 +168,8 @@ if __name__ == "__main__":
     print(f"{R}Target Website: {W}{domain}")
     CloudFlare_IP = get_real_ip(domain)
     print(f"{R}IP Address: {W}{CloudFlare_IP}\n")
-    print(f"{Y}Checking if the website uses Cloudflare...{Fore.RESET}")
+    get_domain_historical_ip_address(domain)
+    print(f"\n{Y}Checking if the website uses Cloudflare...{Fore.RESET}")
 
     if is_using_cloudflare(domain):
         print(f"{Y}Scanning for subdomains. Please wait...{Fore.RESET}")
