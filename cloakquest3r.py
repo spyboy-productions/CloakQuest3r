@@ -13,7 +13,7 @@ website = 'https://spyboy.in/'
 blog = 'https://spyboy.blog/'
 github = 'https://github.com/spyboy-productions/CloakQuest3r'
 
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
 R = '\033[31m'  # red
 G = '\033[32m'  # green
@@ -41,11 +41,11 @@ def print_banners():
     print(f'{R}{banner}{W}\n')
     print(f'{G}[+] {Y}Version      : {W}{VERSION}')
     print(f'{G}[+] {Y}Created By   : {W}Spyboy')
-    print(f'{G} ╰➤ {Y}Twitter      : {W}{twitter_url}')
-    print(f'{G} ╰➤ {Y}Discord      : {W}{discord}')
-    print(f'{G} ╰➤ {Y}Website      : {W}{website}')
-    print(f'{G} ╰➤ {Y}Blog         : {W}{blog}')
-    print(f'{G} ╰➤ {Y}Github       : {W}{github}\n')
+    print(f'{G} \u2514\u27A4 {Y}Twitter      : {W}{twitter_url}')
+    print(f'{G} \u2514\u27A4 {Y}Discord      : {W}{discord}')
+    print(f'{G} \u2514\u27A4 {Y}Website      : {W}{website}')
+    print(f'{G} \u2514\u27A4 {Y}Blog         : {W}{blog}')
+    print(f'{G} \u2514\u27A4 {Y}Github       : {W}{github}\n')
 
 def is_using_cloudflare(domain):
     try:
@@ -80,7 +80,7 @@ def find_subdomains(domain, filename, timeout=20):
             if response.status_code == 200:
                 with subdomains_lock:
                     subdomains_found.append(subdomain_url)
-                    print(f"{Fore.GREEN}Subdomain Found ╰➤: {subdomain_url}{Fore.RESET}")
+                    print(f"{Fore.GREEN}Subdomain Found \u2514\u27A4: {subdomain_url}{Fore.RESET}")
         except requests.exceptions.RequestException as e:
             if "Max retries exceeded with url" in str(e):
                 pass
@@ -102,9 +102,9 @@ def find_subdomains(domain, filename, timeout=20):
 
     end_time = time.time()
     elapsed_time = end_time - start_time
-    print(f"\n{G}╰➤ {C}Total Subdomains Scanned:{W} {len(subdomains)}")
-    print(f"{G}╰➤ {C}Total Subdomains Found:{W} {len(subdomains_found)}")
-    print(f"{G}╰➤ {C}Time taken:{W} {elapsed_time:.2f} seconds")
+    print(f"\n{G} \u2514\u27A4 {C}Total Subdomains Scanned:{W} {len(subdomains)}")
+    print(f"{G} \u2514\u27A4 {C}Total Subdomains Found:{W} {len(subdomains_found)}")
+    print(f"{G} \u2514\u27A4 {C}Time taken:{W} {elapsed_time:.2f} seconds")
 
     real_ips = []
 
@@ -153,10 +153,10 @@ def get_domain_historical_ip_address(domain):
             location = columns[1].text.strip()
             owner = columns[2].text.strip()
             last_seen = columns[3].text.strip()
-            print(f"{Y}  [+] {C}IP Address: {G}{ip_address}{W}")
-            print(f"{Y}   ╰➤ {C}Location: {G}{location}{W}")
-            print(f"{Y}   ╰➤ {C}Owner: {G}{owner}{W}")
-            print(f"{Y}   ╰➤ {C}Last Seen: {G}{last_seen}{W}")
+            print(f"\n{R} [+] {C}IP Address: {G}{ip_address}{W}")
+            print(f"{Y}  \u2514\u27A4 {C}Location: {G}{location}{W}")
+            print(f"{Y}  \u2514\u27A4 {C}Owner: {G}{owner}{W}")
+            print(f"{Y}  \u2514\u27A4 {C}Last Seen: {G}{last_seen}{W}")
     else:
         None
 
