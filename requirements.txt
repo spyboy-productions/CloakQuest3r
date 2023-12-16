@@ -1,3 +1,4 @@
 requests
 colorama
 bs4
+cryptography

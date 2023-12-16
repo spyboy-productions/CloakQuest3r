@@ -1,11 +1,13 @@
 import socket
 import sys
+import ssl
 import requests
+from cryptography import x509
+from cryptography.hazmat.backends import default_backend
 from colorama import init, Fore
 import threading
 import time
 from bs4 import BeautifulSoup
-
 
 twitter_url = 'https://spyboy.in/twitter'
 discord = 'https://spyboy.in/Discord'
@@ -13,7 +15,7 @@ website = 'https://spyboy.in/'
 blog = 'https://spyboy.blog/'
 github = 'https://github.com/spyboy-productions/CloakQuest3r'
 
-VERSION = '1.0.1'
+VERSION = '1.0.3'
 
 R = '\033[31m'  # red
 G = '\033[32m'  # green
@@ -21,15 +23,13 @@ C = '\033[36m'  # cyan
 W = '\033[0m'  # white
 Y = '\033[33m'  # yellow
 
-banner = r'''                                                    
-
-   ___ _             _      ____                 _   _____      
-  / __\ | ___   __ _| | __ /___ \_   _  ___  ___| |_|___ / _ __ 
+banner = r'''
+   ___ _             _      ____                 _   _____
+  / __\ | ___   __ _| | __ /___ \_   _  ___  ___| |_|___ / _ __
  / /  | |/ _ \ / _` | |/ ///  / / | | |/ _ \/ __| __| |_ \| '__|
-/ /___| | (_) | (_| |   </ \_/ /| |_| |  __/\__ \ |_ ___) | |   
-\____/|_|\___/ \__,_|_|\_\___,_\ \__,_|\___||___/\__|____/|_|   
-                        Cloudflare Real IP Detector.       
-
+/ /___| | (_) | (_| |   </ \_/ /| |_| |  __/\__ \ |_ ___) | |
+\____/|_|\___/ \__,_|_|\_\___,_\ \__,_|\___||___/\__|____/|_|
+                        Cloudflare Real IP Detector.
 '''
 
 init()
@@ -62,7 +62,32 @@ def is_using_cloudflare(domain):
 
     return False
 
-def find_subdomains(domain, filename, timeout=20):
+def get_ssl_certificate_info(host):
+    try:
+        context = ssl.create_default_context()
+        with context.wrap_socket(socket.socket(), server_hostname=host) as sock:
+            sock.connect((host, 443))
+            certificate_der = sock.getpeercert(True)
+
+        certificate = x509.load_der_x509_certificate(certificate_der, default_backend())
+
+        # Extract relevant information from the certificate
+        common_name = certificate.subject.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
+        issuer = certificate.issuer.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
+        validity_start = certificate.not_valid_before
+        validity_end = certificate.not_valid_after
+
+        return {
+            "Common Name": common_name,
+            "Issuer": issuer,
+            "Validity Start": validity_start,
+            "Validity End": validity_end,
+        }
+    except Exception as e:
+        print(f"{Fore.RED}Error extracting SSL certificate information: {e}{Fore.RESET}")
+        return None
+
+def find_subdomains_with_ssl_analysis(domain, filename, timeout=20):
     if not is_using_cloudflare(domain):
         print(f"{C}Website is not using Cloudflare. Subdomain scan is not needed.{W}")
         return
@@ -115,15 +140,21 @@ def find_subdomains(domain, filename, timeout=20):
             real_ip = get_real_ip(host)
             if real_ip:
                 real_ips.append((host, real_ip))
-                print(f"\n{Y}[+] {C}Real IP Address of {G}{host}:{W} {real_ip}")
+                print(f"\n{Fore.YELLOW}[+] {Fore.CYAN}Real IP Address of {Fore.GREEN}{host}:{Fore.RED} {real_ip}")
+
+                # Perform SSL Certificate Analysis
+                ssl_info = get_ssl_certificate_info(host)
+                if ssl_info:
+                    print(f"{Fore.RED}   [+] {Fore.CYAN}SSL Certificate Information:")
+                    for key, value in ssl_info.items():
+                        print(f"{Fore.RED}      \u2514\u27A4 {Fore.CYAN}{key}:{W} {value}")
 
     if not real_ips:
         print(f"{R}No real IP addresses found for subdomains.")
     else:
         print("\nTask Complete!!\n")
-        #for link in subdomains_found:
-            #print(link)
-
+        # for link in subdomains_found:
+        # print(link)
 
 def get_real_ip(host):
     try:
@@ -131,6 +162,7 @@ def get_real_ip(host):
         return real_ip
     except socket.gaierror:
         return None
+
     
 def get_domain_historical_ip_address(domain):
     url = f"https://viewdns.info/iphistory/?domain={domain}"
@@ -173,6 +205,7 @@ if __name__ == "__main__":
 
     if is_using_cloudflare(domain):
         print(f"{Y}Scanning for subdomains. Please wait...{Fore.RESET}")
-        find_subdomains(domain, filename)
+        find_subdomains_with_ssl_analysis(domain, filename)
+
     else:
         print(f"{C}Website is not using Cloudflare. Subdomain scan is not needed.{W}")
