@@ -85,7 +85,9 @@ Requirements:
     ```
     pip3 install -r requirements.txt
     ```
-    `For Termux User` use this command if having trouble installing cryptography `pkg install python-cryptography` 
+    `For Termux(android) User` use the command given below if having trouble installing `cryptography` using requirements.txt
+
+    `pkg install python-cryptography` 
 
    ```
    python cloakquest3r.py example.com
