@@ -110,7 +110,7 @@ Contributions and feature requests are welcome! If you encounter any issues or h
 
 #### 😴🥱😪💤 ToDo:
 
-- Add more free API like Securitytrails: https://securitytrails.com/
+- Add free API (ex: securitytrails)
 - Discover IP through website API calls (POC)
 - Save all info on a Txt/CSV file.
 
