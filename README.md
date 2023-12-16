@@ -30,6 +30,8 @@ CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true 
 
 - **IP address History:** Retrieve historical IP address information for a given domain. It uses the ViewDNS service to fetch and display details such as IP address, location, owner, and last seen date.
 
+- **SSL Certificate Analysis:** Extract and analyze SSL certificates associated with the target domain. This could provide additional information about the hosting infrastructure and potentially reveal the true IP address.
+
 - **Threaded Scanning:** To enhance efficiency and expedite the real IP detection process, CloakQuest3r utilizes threading. This feature enables scanning of a substantial list of subdomains without significantly extending the execution time.
 
 - **Detailed Reporting:** The tool provides comprehensive output, including the total number of subdomains scanned, the total number of subdomains found, and the time taken for the scan. Any real IP addresses unveiled during the process are also presented, facilitating in-depth analysis and penetration testing.
