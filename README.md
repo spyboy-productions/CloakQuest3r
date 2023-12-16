@@ -103,7 +103,8 @@ Requirements:
 
 CloudScan simplifies the process of assessing website security by providing a clear, organized, and informative report. Use it to enhance your security assessments, identify potential vulnerabilities, and secure your web assets.
 
-#### Run It Online:
+#### Run It Online
+It is just a demo and not all functionality is available. Please install the tool to access its full potential.
 
 Run it online on replit.com : https://replit.com/@spyb0y/CloakQuest3r
 
