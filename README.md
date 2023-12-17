@@ -17,7 +17,7 @@
   
 </p>
 
-<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1182112665364074536/cloak.png" />
+<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1185865562627252274/dwsda.png" />
 
 <be>
 
