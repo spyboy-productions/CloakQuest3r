@@ -21,7 +21,7 @@
 
 <be>
 
-CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true IP address of websites safeguarded by Cloudflare, a widely adopted web security and performance enhancement service. Its core mission is to accurately discern the actual IP address of web servers that are concealed behind Cloudflare's protective shield. Subdomain scanning is employed as a key technique in this pursuit. This tool is an invaluable resource for penetration testers, security professionals, and web administrators seeking to perform comprehensive security assessments and identify vulnerabilities that may be obscured by Cloudflare's security measures.
+CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true IP address of websites safeguarded by Cloudflare and other alternatives, a widely adopted web security and performance enhancement service. Its core mission is to accurately discern the actual IP address of web servers that are concealed behind Cloudflare's protective shield. Subdomain scanning is employed as a key technique in this pursuit. This tool is an invaluable resource for penetration testers, security professionals, and web administrators seeking to perform comprehensive security assessments and identify vulnerabilities that may be obscured by Cloudflare's security measures.
 
 **Key Features:**
 - **Real IP Detection:** CloakQuest3r excels in the art of discovering the real IP address of web servers employing Cloudflare's services. This crucial information is paramount for conducting comprehensive penetration tests and ensuring the security of web assets.
@@ -93,7 +93,7 @@ Requirements:
    python cloakquest3r.py example.com
    ```
 
-3. The tool will check if the website is using Cloudflare. If not, it will inform you that subdomain scanning is unnecessary.
+3. The tool will check if the website is using Cloudflare. If not, it will inform you and ask if you still want to proceed.
 
 4. If Cloudflare is detected, CloudScan will scan for subdomains and identify their real IP addresses.
 
