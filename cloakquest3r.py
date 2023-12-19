@@ -15,7 +15,7 @@ website = 'https://spyboy.in/'
 blog = 'https://spyboy.blog/'
 github = 'https://github.com/spyboy-productions/CloakQuest3r'
 
-VERSION = '1.0.3'
+VERSION = '1.0.4'
 
 R = '\033[31m'  # red
 G = '\033[32m'  # green
@@ -29,7 +29,7 @@ banner = r'''
  / /  | |/ _ \ / _` | |/ ///  / / | | |/ _ \/ __| __| |_ \| '__|
 / /___| | (_) | (_| |   </ \_/ /| |_| |  __/\__ \ |_ ___) | |
 \____/|_|\___/ \__,_|_|\_\___,_\ \__,_|\___||___/\__|____/|_|
-                        Cloudflare Real IP Detector.
+Uncover the true IP address of websites safeguarded by Cloudflare & ohers.
 '''
 
 init()
@@ -62,6 +62,17 @@ def is_using_cloudflare(domain):
 
     return False
 
+def detect_web_server(domain):
+    try:
+        response = requests.head(f"http://{domain}", timeout=5)
+        server_header = response.headers.get("Server")
+        if server_header:
+            return server_header.strip()
+    except (requests.exceptions.RequestException, requests.exceptions.ConnectionError):
+        pass
+
+    return "UNKNOWN"
+
 def get_ssl_certificate_info(host):
     try:
         context = ssl.create_default_context()
@@ -88,9 +99,9 @@ def get_ssl_certificate_info(host):
         return None
 
 def find_subdomains_with_ssl_analysis(domain, filename, timeout=20):
-    if not is_using_cloudflare(domain):
-        print(f"{C}Website is not using Cloudflare. Subdomain scan is not needed.{W}")
-        return
+    #if not is_using_cloudflare(domain):
+        #print(f"{C}Website is not using Cloudflare. Subdomain scan is not needed.{W}")
+        #return
 
     subdomains_found = []
     subdomains_lock = threading.Lock()
@@ -113,7 +124,7 @@ def find_subdomains_with_ssl_analysis(domain, filename, timeout=20):
     with open(filename, "r") as file:
         subdomains = [line.strip() for line in file.readlines()]
 
-    print(f"{Y}Starting threads...")
+    print(f"\n{Fore.YELLOW}Starting threads...")
     start_time = time.time()
 
     threads = []
@@ -178,14 +189,14 @@ def get_domain_historical_ip_address(domain):
 
     if table:
         rows = table.find_all('tr')[2:]
-        print(f"\n{Y}[+] {Y}Historical IP Address Info for {G}{domain}:{W}")
+        print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Historical IP Address Info for {Fore.GREEN}{domain}:{W}")
         for row in rows:
             columns = row.find_all('td')
             ip_address = columns[0].text.strip()
             location = columns[1].text.strip()
             owner = columns[2].text.strip()
             last_seen = columns[3].text.strip()
-            print(f"\n{R} [+] {C}IP Address: {G}{ip_address}{W}")
+            print(f"\n{R} [+] {C}IP Address: {R}{ip_address}{W}")
             print(f"{Y}  \u2514\u27A4 {C}Location: {G}{location}{W}")
             print(f"{Y}  \u2514\u27A4 {C}Owner: {G}{owner}{W}")
             print(f"{Y}  \u2514\u27A4 {C}Last Seen: {G}{last_seen}{W}")
@@ -197,15 +208,37 @@ if __name__ == "__main__":
     domain = sys.argv[1]  # pass domain in command-line argument ex: python3 cloakquest3r.py top.gg
     filename = "wordlist2.txt"
     print_banners()
-    print(f"{R}Target Website: {W}{domain}")
     CloudFlare_IP = get_real_ip(domain)
-    print(f"{R}IP Address: {W}{CloudFlare_IP}\n")
-    get_domain_historical_ip_address(domain)
-    print(f"\n{Y}Checking if the website uses Cloudflare...{Fore.RESET}")
+
+    print(f"\n{Fore.GREEN}[!] {C}Checking if the website uses Cloudflare{Fore.RESET}\n")
 
     if is_using_cloudflare(domain):
-        print(f"{Y}Scanning for subdomains. Please wait...{Fore.RESET}")
+
+        print(f"\n{R}Target Website: {W}{domain}")
+        print(f"{R}Visible IP Address: {W}{CloudFlare_IP}\n")
+        get_domain_historical_ip_address(domain)
+
+        print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Scanning for subdomains.{Fore.RESET}")
         find_subdomains_with_ssl_analysis(domain, filename)
 
     else:
-        print(f"{C}Website is not using Cloudflare. Subdomain scan is not needed.{W}")
+        print(f"{Fore.RED}- Website is not using Cloudflare.")
+        
+        # Determine what technology it is using
+        technology = detect_web_server(domain)
+        print(f"\n{Fore.GREEN}[+] {C}Website is using: {Fore.GREEN} {technology}")
+
+        # Ask the user if they want to proceed
+        proceed = input(f"\n{Fore.YELLOW}> Do you want to proceed? {Fore.GREEN}(yes/no): ").lower()
+
+        if proceed == "yes":
+            # Add the functionality for the specific technology here
+            print(f"\n{R}Target Website: {W}{domain}")
+            print(f"{R}Visible IP Address: {W}{CloudFlare_IP}\n")
+            get_domain_historical_ip_address(domain)
+
+            print(f"{Fore.GREEN}[+] {Fore.YELLOW}Scanning for subdomains.{Fore.RESET}")
+            find_subdomains_with_ssl_analysis(domain, filename)
+        else:
+            print(f"{R}Operation aborted. Exiting...{W}")
+
