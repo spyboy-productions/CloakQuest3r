@@ -1,6 +1,7 @@
 import socket
 import sys
 import ssl
+import os
 import requests
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
@@ -8,6 +9,7 @@ from colorama import init, Fore
 import threading
 import time
 from bs4 import BeautifulSoup
+import configparser
 
 twitter_url = 'https://spyboy.in/twitter'
 discord = 'https://spyboy.in/Discord'
@@ -174,33 +176,78 @@ def get_real_ip(host):
     except socket.gaierror:
         return None
 
-    
-def get_domain_historical_ip_address(domain):
-    url = f"https://viewdns.info/iphistory/?domain={domain}"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-   
-    }
-    response = requests.get(url, headers=headers)
-    html = response.text
-    soup = BeautifulSoup(html, 'html.parser')
-    table = soup.find('table', {'border': '1'})
-
-    if table:
-        rows = table.find_all('tr')[2:]
-        print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Historical IP Address Info for {Fore.GREEN}{domain}:{W}")
-        for row in rows:
-            columns = row.find_all('td')
-            ip_address = columns[0].text.strip()
-            location = columns[1].text.strip()
-            owner = columns[2].text.strip()
-            last_seen = columns[3].text.strip()
-            print(f"\n{R} [+] {C}IP Address: {R}{ip_address}{W}")
-            print(f"{Y}  \u2514\u27A4 {C}Location: {G}{location}{W}")
-            print(f"{Y}  \u2514\u27A4 {C}Owner: {G}{owner}{W}")
-            print(f"{Y}  \u2514\u27A4 {C}Last Seen: {G}{last_seen}{W}")
+#Read config file
+def read_config():
+    config = configparser.ConfigParser()
+    #check if config file exists
+    if not os.path.exists('config.ini'):
+        #create config file
+        # Create the [DEFAULT] section and set the securitytrails_api_key option
+        config["DEFAULT"] = {
+        "securitytrails_api_key": "your_api_key"}
+        with open('config.ini', 'w') as configfile:
+            config.write(configfile)
+        print(f"\n[!] {Fore.RED}Please add your {C}SecurityTrails{Fore.RED} API Key in config.ini file{Fore.RESET}")
     else:
+        config.read('config.ini')
+        APIKEY = config['DEFAULT']['securitytrails_api_key']
+        return APIKEY
+
+def securitytrails_historical_ip_address(domain):
+    if read_config() :
+        url = f"https://api.securitytrails.com/v1/history/{domain}/dns/a"
+        headers = {
+        "accept": "application/json",
+        "APIKEY": read_config()}
+        try:
+            response = requests.get(url, headers=headers)
+            data = response.json()
+            print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Historical IP Address Info from {C}SecurityTrails{Y} for {Fore.GREEN}{domain}:{W}")
+            for record in data['records']:
+                ip = record["values"][0]["ip"]
+                first_seen = record["first_seen"]
+                last_seen = record["last_seen"]
+                organizations = record["organizations"][0]
+                print(f"\n{R} [+] {C}IP Address: {R}{ip}{W}")
+                print(f"{Y}  \u2514\u27A4 {C}First Seen: {G}{first_seen}{W}")
+                print(f"{Y}  \u2514\u27A4 {C}Last Seen: {G}{last_seen}{W}")
+                print(f"{Y}  \u2514\u27A4 {C}Organizations: {G}{organizations}{W}")
+        except:
+            print(f"{Fore.RED}Error extracting Historical IP Address information from SecurityTrails{Fore.RESET}")
+            None
+    else:
+        print(f"{Fore.RED}Please add your {C}SecurityTrails{Fore.RED} API Key in config.ini file{Fore.RESET}")
+        None
+
+def get_domain_historical_ip_address(domain):
+    try:
+        url = f"https://viewdns.info/iphistory/?domain={domain}"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    
+        }
+        response = requests.get(url, headers=headers)
+        html = response.text
+        soup = BeautifulSoup(html, 'html.parser')
+        table = soup.find('table', {'border': '1'})
+
+        if table:
+            rows = table.find_all('tr')[2:]
+            print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Historical IP Address Info from {C}Viewdns{Y} for {Fore.GREEN}{domain}:{W}")
+            for row in rows:
+                columns = row.find_all('td')
+                ip_address = columns[0].text.strip()
+                location = columns[1].text.strip()
+                owner = columns[2].text.strip()
+                last_seen = columns[3].text.strip()
+                print(f"\n{R} [+] {C}IP Address: {R}{ip_address}{W}")
+                print(f"{Y}  \u2514\u27A4 {C}Location: {G}{location}{W}")
+                print(f"{Y}  \u2514\u27A4 {C}Owner: {G}{owner}{W}")
+                print(f"{Y}  \u2514\u27A4 {C}Last Seen: {G}{last_seen}{W}")
+        else:
+            None
+    except:
         None
 
 
@@ -217,7 +264,7 @@ if __name__ == "__main__":
         print(f"\n{R}Target Website: {W}{domain}")
         print(f"{R}Visible IP Address: {W}{CloudFlare_IP}\n")
         get_domain_historical_ip_address(domain)
-
+        securitytrails_historical_ip_address(domain)
         print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Scanning for subdomains.{Fore.RESET}")
         find_subdomains_with_ssl_analysis(domain, filename)
 
@@ -236,6 +283,7 @@ if __name__ == "__main__":
             print(f"\n{R}Target Website: {W}{domain}")
             print(f"{R}Visible IP Address: {W}{CloudFlare_IP}\n")
             get_domain_historical_ip_address(domain)
+            securitytrails_historical_ip_address(domain)
 
             print(f"{Fore.GREEN}[+] {Fore.YELLOW}Scanning for subdomains.{Fore.RESET}")
             find_subdomains_with_ssl_analysis(domain, filename)
