@@ -40,13 +40,21 @@ CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true 
 
 With CloakQuest3r, you can confidently evaluate website security, unveil hidden vulnerabilities, and secure your web assets by disclosing the true IP address concealed behind Cloudflare's protective layers.
 
+#### Featured:
+
+`KitPloit`
+
+- [Top 20 Most Popular Hacking Tools in 2023](https://www.kitploit.com/2023/12/top-20-most-popular-hacking-tools-in.html)
+
 #### Limitation
 
 ```diff
 
 - Sometimes it can't detect the real Ip.
 
-- CloakQuest3r combines multiple indicators to uncover real IP addresses behind Cloudflare. While subdomain scanning is a part of the process, we do not assume that all subdomains' A records point to the target host. The tool is designed to provide valuable insights but may not work in every scenario. We welcome any specific suggestions for improvement. 
+- CloakQuest3r combines multiple indicators to uncover real IP addresses behind Cloudflare. While subdomain scanning is a part of the process, we do not assume that all subdomains' A records point to the target host. The tool is designed to provide valuable insights but may not work in every scenario. We welcome any specific suggestions for improvement.
+
+- We created a proof of concept, but it's not well-written. We welcome pull requests to improve it.
 
 1. False Negatives: CloakReveal3r may not always accurately identify the real IP address behind Cloudflare, particularly for websites with complex network configurations or strict security measures.
 
@@ -141,8 +149,10 @@ Contributions and feature requests are welcome! If you encounter any issues or h
 
 ### ⭔ Snapshots:
 ---
+<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1190099247312412682/Screenshot_2023-12-28_at_7.55.10_PM.png" />
+<!-- 
 <img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1185878687388807238/Screenshot_2023-12-16_at_4.51.00_PM.png" />
 
 <img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1185878687820828742/Screenshot_2023-12-16_at_4.51.45_PM.png" />
-
+-->
 <h4 align="center"> If you find this GitHub repo useful, please consider giving it a star! ⭐️ </h4> 
