@@ -32,7 +32,9 @@ CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true 
 
 - **SSL Certificate Analysis:** Extract and analyze SSL certificates associated with the target domain. This could provide additional information about the hosting infrastructure and potentially reveal the true IP address.
 
-- **Threaded Scanning:** To enhance efficiency and expedite the real IP detection process, CloakQuest3r utilizes threading. This feature enables scanning of a substantial list of subdomains without significantly extending the execution time.
+- **SecurityTrails API (optional):**  If you add your free SecurityTrails API to the config.ini file, you can retrieve historical IP information from SecurityTrails.
+
+- **Threaded Scanning:** To enhance efficiency and expedite the real IP detection process, CloakQuest3r utilizes threading. This feature enables the scanning of a substantial list of subdomains without significantly extending the execution time.
 
 - **Detailed Reporting:** The tool provides comprehensive output, including the total number of subdomains scanned, the total number of subdomains found, and the time taken for the scan. Any real IP addresses unveiled during the process are also presented, facilitating in-depth analysis and penetration testing.
 
@@ -73,7 +75,6 @@ Requirements:
 <img src="https://img.shields.io/badge/Git-05122A?style=for-the-badge&logo=git">
 </h4>
 
-
 **How to Use:**
 1. Run CloudScan with a single command-line argument: the target domain you want to analyze.
    ```
@@ -95,13 +96,30 @@ Requirements:
 
 3. The tool will check if the website is using Cloudflare. If not, it will inform you and ask if you still want to proceed.
 
-4. If Cloudflare is detected, CloudScan will scan for subdomains and identify their real IP addresses.
+4. If Cloudflare is detected, it will first print historical IP records and then it will scan for subdomains and identify their real IP addresses.
 
 5. You will receive detailed output, including the number of subdomains scanned, the total number of subdomains found, and the time taken for the scan.
    
 6. Any real IP addresses found will be displayed, allowing you to conduct further analysis and penetration testing.
 
-CloudScan simplifies the process of assessing website security by providing a clear, organized, and informative report. Use it to enhance your security assessments, identify potential vulnerabilities, and secure your web assets.
+it simplifies the process of assessing website security by providing a clear, organized, and informative report. Use it to enhance your security assessments, identify potential vulnerabilities, and secure your web assets.
+
+---
+
+**Optional**: [SecurityTrails API](https://securitytrails.com/)
+
+Retrieves historical IP information from SecurityTrails. if you have API add in the configuration file (config.ini).
+
+Upon initial execution of the script, it generates a config.ini file with the following content:
+
+```ini
+[DEFAULT]
+securitytrails_api_key = your_api_key
+```
+
+Subsequently, the script attempts to retrieve data from the SecurityTrails API. If the retrieval fails due to reasons such as quota limitations or site unavailability, the corresponding function is gracefully skipped.
+
+---
 
 #### Run It Online on replit.com 
 It is just a demo and not all functionality is available. Please install the tool to access its full potential.
@@ -115,7 +133,6 @@ Contributions and feature requests are welcome! If you encounter any issues or h
 
 #### 😴🥱😪💤 ToDo:
 
-- Add free API (ex: securitytrails)
 - Discover IP through website API calls (POC)
 - Save all info on a Txt/CSV file.
 
