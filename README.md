@@ -32,7 +32,7 @@ CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true 
 
 - **SSL Certificate Analysis:** Extract and analyze SSL certificates associated with the target domain. This could provide additional information about the hosting infrastructure and potentially reveal the true IP address.
 
-- **SecurityTrails API (optional):**  If you add your free SecurityTrails API to the config.ini file, you can retrieve historical IP information from SecurityTrails.
+- **SecurityTrails API (optional):**  If you add your free SecurityTrails API key to the config.ini file, you can retrieve historical IP information from SecurityTrails.
 
 - **Threaded Scanning:** To enhance efficiency and expedite the real IP detection process, CloakQuest3r utilizes threading. This feature enables the scanning of a substantial list of subdomains without significantly extending the execution time.
 
@@ -108,7 +108,7 @@ it simplifies the process of assessing website security by providing a clear, or
 
 **Optional**: [SecurityTrails API](https://securitytrails.com/)
 
-Retrieves historical IP information from SecurityTrails. if you have API add in the configuration file (config.ini).
+Retrieves historical IP information from SecurityTrails. if you have an API key add it to the configuration file (config.ini).
 
 Upon initial execution of the script, it generates a config.ini file with the following content:
 
