@@ -42,7 +42,7 @@ With CloakQuest3r, you can confidently evaluate website security, unveil hidden 
 
 #### Featured:
 
-`KitPloit`
+`CloakQuest3r` is one of the `Top 20 Most Popular Hacking Tools` in 2023 by `KitPloit`
 
 - [Top 20 Most Popular Hacking Tools in 2023](https://www.kitploit.com/2023/12/top-20-most-popular-hacking-tools-in.html)
 
