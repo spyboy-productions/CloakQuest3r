@@ -34,3 +34,6 @@ def print_banners():
     print(f'{G} \u2514\u27A4 {Y}Website      : {W}{website}')
     print(f'{G} \u2514\u27A4 {Y}Blog         : {W}{blog}')
     print(f'{G} \u2514\u27A4 {Y}Github       : {W}{github}\n')
+
+def read_config():
+    pass
