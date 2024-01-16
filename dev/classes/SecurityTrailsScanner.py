@@ -1,12 +1,12 @@
-from config import read_config
-from config import *
-from enums.url_headers import *
+from dev.config import *
+from dev.enums.url_headers import *
 import requests
 from colorama import Fore
 
 class SecurityTrailsScanner:
     def __init__(self, domain):
         self.domain = domain
+        self.data = []
 
     def security_trails_record_parser(self, record):
         ip = record["values"][0]["ip"]
@@ -18,14 +18,19 @@ class SecurityTrailsScanner:
         print(f"{Y}  \u2514\u27A4 {C}Last Seen: {G}{last_seen}{W}")
         print(f"{Y}  \u2514\u27A4 {C}Organizations: {G}{organizations}{W}")
 
-    def securitytrails_historical_ip_address(self):
-        if read_config() :
+        return {
+            "IP Address": ip,
+            "First Seen": first_seen,
+            "Last Seen": last_seen,
+            "Organizations": organizations,
+        }
+
+    def securitytrails_historical_ip_address(self, domain):
+        if read_config():
 
             # functionalize this in order to be a generic enumeration method
-            securitytrails_instance = SecurityTrails()
-            securitytrails_instance.set_domain(self.domain)
 
-            url = SecurityTrails.SECURITYTRAILS_URL
+            url = SecurityTrails.SECURITYTRAILS_URL.format(domain=domain)
             headers = SecurityTrails.SECURITYTRAILS_HEADERS
 
             try:
@@ -33,7 +38,8 @@ class SecurityTrailsScanner:
                 data = response.json()
                 print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Historical IP Address Info from {C}SecurityTrails{Y} for {Fore.GREEN}{self.domain}:{W}")
                 for record in data['records']:
-                    self.security_trails_record_parser(record)
+                    record_data = self.security_trails_record_parser(record)
+                    self.data.append(record_data)
             except:
                 print(f"{Fore.RED}Error extracting Historical IP Address information from SecurityTrails{Fore.RESET}")
                 None

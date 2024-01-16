@@ -1,5 +1,5 @@
 import requests
-from enums.cloudflare_status import CloudflareStatus
+from dev.enums.cloudflare_status import CloudflareStatus
 
 
 class HeaderScanner:

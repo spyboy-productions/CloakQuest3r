@@ -4,10 +4,13 @@ import ssl
 from colorama import Fore, Back, Style
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
-from config import *
+from timeout_decorator import timeout, TimeoutError
+
+from dev.config import *
 class SubDomainScanner:
     def __init__(self, domain):
         self.domain = domain
+        self.data = []
 
     def get_domain_names(self):
         """
@@ -53,7 +56,7 @@ class SubDomainScanner:
             print(f"Unexpected error: {e}")
             return None
 
-
+    @timeout(20)
     def get_ssl_certificate_info(self, host):
         try:
             context = ssl.create_default_context()
@@ -75,14 +78,19 @@ class SubDomainScanner:
                 "Validity Start": validity_start,
                 "Validity End": validity_end,
             }
+        except TimeoutError:
+            print("Timeout occurred. Moving to the next iteration.")
+            return None
         except Exception as e:
             print(f"{Fore.RED}Error extracting SSL certificate information: {e}{Fore.RESET}")
             return None
 
     def run_scan(self):
         domain_list = self.get_domain_names()
+        print(f"{G} \u2514\u27A4 {C}Total Subdomains Found:{W} {len(domain_list)}")
         for subdomain in domain_list:
             real_ip = self.get_real_ip(subdomain)
+            subdomain_data = {"Subdomain": subdomain, "Real IP": real_ip, "SSL Info": None}
             if real_ip:
                 print(f"{Fore.YELLOW}[+] {Fore.CYAN}Real IP Address of {Fore.GREEN}{subdomain}:{Fore.RED} {real_ip}")
 
@@ -92,3 +100,7 @@ class SubDomainScanner:
                     print(f"{Fore.RED}   [+] {Fore.CYAN}SSL Certificate Information:")
                     for key, value in ssl_info.items():
                         print(f"{Fore.RED}      \u2514\u27A4 {Fore.CYAN}{key}:{W} {value}")
+
+                    subdomain_data["SSL Info"] = ssl_info
+
+            self.data.append(subdomain_data)
