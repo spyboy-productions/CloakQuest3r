@@ -11,7 +11,7 @@ import time
 from bs4 import BeautifulSoup
 import configparser
 
-twitter_url = 'https://twitter.com/itisspyboy'
+twitter_url = 'https://spyboy.in/twitter'
 discord = 'https://spyboy.in/Discord'
 website = 'https://spyboy.in/'
 blog = 'https://spyboy.blog/'
