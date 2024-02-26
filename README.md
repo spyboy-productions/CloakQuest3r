@@ -17,7 +17,7 @@
   
 </p>
 
-<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1185865562627252274/dwsda.png?ex=65e438de&is=65d1c3de&hm=6d232f3c759e242f6ef376282b60d3b618ebb58043f5fd1f7aea5e48e2b5c33d&" />
+<img width="100%" align="centre" src="https://github.com/spyboy-productions/CloakQuest3r/blob/main/image/cloakquest3r.png" />
 
 <be>
 
@@ -150,7 +150,7 @@ Contributions and feature requests are welcome! If you encounter any issues or h
 
 ### ⭔ Snapshots:
 ---
-<img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1190099247312412682/Screenshot_2023-12-28_at_7.55.10_PM.png" />
+<img width="100%" align="centre" src="https://github.com/spyboy-productions/CloakQuest3r/blob/main/image/snapshot_cloak.png" />
 <!-- 
 <img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1185878687388807238/Screenshot_2023-12-16_at_4.51.00_PM.png" />
 
