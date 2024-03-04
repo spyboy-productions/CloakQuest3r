@@ -3,6 +3,7 @@ import sys
 import ssl
 import os
 import requests
+import urllib.request
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from colorama import init, Fore
@@ -17,7 +18,7 @@ website = 'https://spyboy.in/'
 blog = 'https://spyboy.blog/'
 github = 'https://github.com/spyboy-productions/CloakQuest3r'
 
-VERSION = '1.0.4'
+VERSION = '1.0.5'
 
 R = '\033[31m'  # red
 G = '\033[32m'  # green
@@ -75,6 +76,20 @@ def detect_web_server(domain):
 
     return "UNKNOWN"
 
+wordlist_url = "https://github.com/danielmiessler/SecLists/raw/master/Discovery/DNS/subdomains-top1million-5000.txt"
+default_wordlist = "wordlist.txt"
+updated_wordlist = "wordlist.txt"
+
+def download_wordlist(wordlist_path):
+    print(f"\n{Fore.GREEN}[+] {C}Downloading an updated wordlist from {Fore.GREEN}SecLists{Fore.RESET}")
+    try:
+        urllib.request.urlretrieve(wordlist_url, wordlist_path)
+        print(f"{Fore.GREEN}[+] {C}Wordlist downloaded successfully as {Fore.GREEN}{wordlist_path}{Fore.RESET}")
+    except Exception as e:
+        print(f"{Fore.RED}[!] {C}Error downloading wordlist: {Fore.RED}{e}{Fore.RESET}")
+        print(f"{Fore.GREEN}[+] {C}Using the existing wordlist {Fore.GREEN}{updated_wordlist}{Fore.RESET}")
+        return updated_wordlist
+
 def get_ssl_certificate_info(host):
     try:
         context = ssl.create_default_context()
@@ -84,11 +99,12 @@ def get_ssl_certificate_info(host):
 
         certificate = x509.load_der_x509_certificate(certificate_der, default_backend())
 
-        # Extract relevant information from the certificate
         common_name = certificate.subject.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
         issuer = certificate.issuer.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
         validity_start = certificate.not_valid_before
         validity_end = certificate.not_valid_after
+        #validity_start = certificate.not_valid_before_utc
+        #validity_end = certificate.not_valid_after_utc
 
         return {
             "Common Name": common_name,
@@ -100,15 +116,9 @@ def get_ssl_certificate_info(host):
         print(f"{Fore.RED}Error extracting SSL certificate information: {e}{Fore.RESET}")
         return None
 
-def find_subdomains_with_ssl_analysis(domain, filename, timeout=20):
-    #if not is_using_cloudflare(domain):
-        #print(f"{C}Website is not using Cloudflare. Subdomain scan is not needed.{W}")
-        #return
-
+def find_subdomains_with_ssl_analysis(domain, wordlist_path=None, timeout=20):
     subdomains_found = []
     subdomains_lock = threading.Lock()
-
-    # subdomain scanning...
 
     def check_subdomain(subdomain):
         subdomain_url = f"https://{subdomain}.{domain}"
@@ -123,7 +133,15 @@ def find_subdomains_with_ssl_analysis(domain, filename, timeout=20):
             if "Max retries exceeded with url" in str(e):
                 pass
 
-    with open(filename, "r") as file:
+    if wordlist_path is None:
+        default_wordlist = "wordlist.txt"
+        wordlist_path = input(f"\n{Fore.CYAN}> Do you have a custom wordlist for subdomain scanning? {Fore.GREEN}(yes/no): ").lower()
+        if wordlist_path == "yes":
+            wordlist_path = input(f"\n{Fore.CYAN}> Enter the path to your custom wordlist: {Fore.GREEN}")
+        else:
+            wordlist_path = default_wordlist
+
+    with open(wordlist_path, "r") as file:
         subdomains = [line.strip() for line in file.readlines()]
 
     print(f"\n{Fore.YELLOW}Starting threads...")
@@ -155,7 +173,6 @@ def find_subdomains_with_ssl_analysis(domain, filename, timeout=20):
                 real_ips.append((host, real_ip))
                 print(f"\n{Fore.YELLOW}[+] {Fore.CYAN}Real IP Address of {Fore.GREEN}{host}:{Fore.RED} {real_ip}")
 
-                # Perform SSL Certificate Analysis
                 ssl_info = get_ssl_certificate_info(host)
                 if ssl_info:
                     print(f"{Fore.RED}   [+] {Fore.CYAN}SSL Certificate Information:")
@@ -166,8 +183,6 @@ def find_subdomains_with_ssl_analysis(domain, filename, timeout=20):
         print(f"{R}No real IP addresses found for subdomains.")
     else:
         print("\nTask Complete!!\n")
-        # for link in subdomains_found:
-        # print(link)
 
 def get_real_ip(host):
     try:
@@ -194,7 +209,7 @@ def read_config():
         return APIKEY
 
 def securitytrails_historical_ip_address(domain):
-    if read_config() :
+    if read_config():
         url = f"https://api.securitytrails.com/v1/history/{domain}/dns/a"
         headers = {
         "accept": "application/json",
@@ -216,7 +231,7 @@ def securitytrails_historical_ip_address(domain):
             print(f"{Fore.RED}Error extracting Historical IP Address information from SecurityTrails{Fore.RESET}")
             None
     else:
-        print(f"{Fore.RED}Please add your {C}SecurityTrails{Fore.RED} API Key in config.ini file{Fore.RESET}")
+        print(f"\n{Fore.RED}Please add your {C}SecurityTrails{Fore.RED} API Key in config.ini file{Fore.RESET}")
         None
 
 def get_domain_historical_ip_address(domain):
@@ -225,7 +240,7 @@ def get_domain_historical_ip_address(domain):
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    
+
         }
         response = requests.get(url, headers=headers)
         html = response.text
@@ -250,43 +265,40 @@ def get_domain_historical_ip_address(domain):
     except:
         None
 
-
 if __name__ == "__main__":
-    domain = sys.argv[1]  # pass domain in command-line argument ex: python3 cloakquest3r.py top.gg
-    filename = "wordlist2.txt"
+    domain = sys.argv[1]
+    filename = "wordlist.txt"
     print_banners()
     CloudFlare_IP = get_real_ip(domain)
 
     print(f"\n{Fore.GREEN}[!] {C}Checking if the website uses Cloudflare{Fore.RESET}\n")
 
     if is_using_cloudflare(domain):
-
         print(f"\n{R}Target Website: {W}{domain}")
         print(f"{R}Visible IP Address: {W}{CloudFlare_IP}\n")
         get_domain_historical_ip_address(domain)
         securitytrails_historical_ip_address(domain)
         print(f"\n{Fore.GREEN}[+] {Fore.YELLOW}Scanning for subdomains.{Fore.RESET}")
-        find_subdomains_with_ssl_analysis(domain, filename)
-
+        if "wordlist_path" not in locals():
+            download_wordlist(default_wordlist)
+        find_subdomains_with_ssl_analysis(domain)
     else:
         print(f"{Fore.RED}- Website is not using Cloudflare.")
-        
-        # Determine what technology it is using
+
         technology = detect_web_server(domain)
         print(f"\n{Fore.GREEN}[+] {C}Website is using: {Fore.GREEN} {technology}")
 
-        # Ask the user if they want to proceed
         proceed = input(f"\n{Fore.YELLOW}> Do you want to proceed? {Fore.GREEN}(yes/no): ").lower()
 
         if proceed == "yes":
-            # Add the functionality for the specific technology here
             print(f"\n{R}Target Website: {W}{domain}")
             print(f"{R}Visible IP Address: {W}{CloudFlare_IP}\n")
             get_domain_historical_ip_address(domain)
             securitytrails_historical_ip_address(domain)
 
             print(f"{Fore.GREEN}[+] {Fore.YELLOW}Scanning for subdomains.{Fore.RESET}")
-            find_subdomains_with_ssl_analysis(domain, filename)
+            if "wordlist_path" not in locals():
+                download_wordlist(default_wordlist)
+            find_subdomains_with_ssl_analysis(domain)
         else:
             print(f"{R}Operation aborted. Exiting...{W}")
-
