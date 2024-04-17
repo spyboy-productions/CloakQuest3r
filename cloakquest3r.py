@@ -11,6 +11,7 @@ import threading
 import time
 from bs4 import BeautifulSoup
 import configparser
+from urllib.parse import urlparse
 
 twitter_url = 'https://spyboy.in/twitter'
 discord = 'https://spyboy.in/Discord'
@@ -67,7 +68,7 @@ def is_using_cloudflare(domain):
 
 def detect_web_server(domain):
     try:
-        response = requests.head(f"http://{domain}", timeout=5)
+        response = requests.head(f"https://{domain}", timeout=5)
         server_header = response.headers.get("Server")
         if server_header:
             return server_header.strip()
@@ -266,7 +267,19 @@ def get_domain_historical_ip_address(domain):
         None
 
 if __name__ == "__main__":
+    #domain = sys.argv[1]
+
+    if len(sys.argv) < 2:
+        print("Usage: python3 cloakquest3r.py <domain>")
+        sys.exit(1)
+
     domain = sys.argv[1]
+    
+    # Extract domain if a full URL is provided
+    parsed_url = urlparse(domain)
+    if parsed_url.scheme:
+        domain = parsed_url.netloc
+
     filename = "wordlist.txt"
     print_banners()
     CloudFlare_IP = get_real_ip(domain)
