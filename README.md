@@ -143,13 +143,12 @@ securitytrails_api_key = your_api_key
 
 Subsequently, the script attempts to retrieve data from the SecurityTrails API. If the retrieval fails due to reasons such as quota limitations or site unavailability, the corresponding function is gracefully skipped.
 
----
-
+<!-- 
 #### Run It Online on replit.com 
 It is just a demo and not all functionality is available. Please install the tool to access its full potential.
 
 [![Run on Repl.it](https://repl.it/badge/github/spyboy-productions/CloakQuest3r)](https://replit.com/@spyb0y/CloakQuest3r)
-
+-->
 ---
 #### Contribution:
 
