@@ -23,14 +23,20 @@
 
 CloakQuest3r is a powerful Python tool meticulously crafted to uncover the true IP address of websites safeguarded by Cloudflare and other alternatives, a widely adopted web security and performance enhancement service. Its core mission is to accurately discern the actual IP address of web servers that are concealed behind Cloudflare's protective shield. Subdomain scanning is employed as a key technique in this pursuit. This tool is an invaluable resource for penetration testers, security professionals, and web administrators seeking to perform comprehensive security assessments and identify vulnerabilities that may be obscured by Cloudflare's security measures.
 
+
 ### 🚀 Run Online Free On `Google Colab`, `Google Shell`, `Binder`
+
 <!-- 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github//spyboy-productions/CloakQuest3r/blob/main/cloakquest3r.ipynb)
--->
-<a href="https://colab.research.google.com/github//spyboy-productions/CloakQuest3r/blob/main/cloakquest3r.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" height="45"></a>
-[![Open in Cloud Shell](https://user-images.githubusercontent.com/27065646/92304704-8d146d80-ef80-11ea-8c29-0deaabb1c702.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/spyboy-productions/CloakQuest3r&tutorial=README.md)
-<a href="https://mybinder.org/v2/gh/spyboy-productions/CloakQuest3r/HEAD"><img src="https://mybinder.org/badge_logo.svg" alt="Open In Binder" height="45" ></a>
 
+[![Open in Cloud Shell](https://user-images.githubusercontent.com/27065646/92304704-8d146d80-ef80-11ea-8c29-0deaabb1c702.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/spyboy-productions/CloakQuest3r&tutorial=README.md)
+-->
+
+<p align="center">
+<a href="https://colab.research.google.com/github//spyboy-productions/CloakQuest3r/blob/main/cloakquest3r.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" height="40"></a>
+<a href="https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/spyboy-productions/CloakQuest3r&tutorial=README.md"><img src="https://user-images.githubusercontent.com/27065646/92304704-8d146d80-ef80-11ea-8c29-0deaabb1c702.png" alt="Open in Cloud Shell" height="40" ></a>
+<a href="https://mybinder.org/v2/gh/spyboy-productions/CloakQuest3r/HEAD"><img src="https://mybinder.org/badge_logo.svg" alt="Open In Binder" height="40" ></a>
+</p>
 
 
 **Key Features:**
