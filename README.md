@@ -156,7 +156,6 @@ Contributions and feature requests are welcome! If you encounter any issues or h
 
 #### 😴🥱😪💤 ToDo:
 
-- Ask the user for a custom subdomain wordlist before the subdomain scan if he doesn't have one, use the default one.
 - Discover IP through website API calls (POC)
 - Save all info on a Txt/CSV file.
 
