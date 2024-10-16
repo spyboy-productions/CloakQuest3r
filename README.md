@@ -171,4 +171,10 @@ Contributions and feature requests are welcome! If you encounter any issues or h
 
 <img width="100%" align="centre" src="https://cdn.discordapp.com/attachments/1141162711464550430/1185878687820828742/Screenshot_2023-12-16_at_4.51.45_PM.png" />
 -->
-<h4 align="center"> If you find this GitHub repo useful, please consider giving it a star! ⭐️ </h4> 
+<h4 align="center"> ‼️ Other Useful Tools 🤓 </h4> 
+
+[R4ven](https://github.com/spyboy-productions/r4ven) Track Someone's Location Over The Internet
+
+[Facad1ng](https://github.com/spyboy-productions/Facad1ng) is a URL masking tool designed to help you Hide Phishing URLs.
+
+[Omnisci3nt](https://github.com/spyboy-productions/omnisci3nt) is a powerful web reconnaissance tool 
