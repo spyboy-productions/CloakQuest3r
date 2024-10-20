@@ -101,7 +101,7 @@ Requirements:
 </h4>
 
 **How to Use:**
-1. Run CloudScan with a single command-line argument: the target domain you want to analyze.
+1. Run with a single command-line argument: the target domain you want to analyze.
    ```
     git clone https://github.com/spyboy-productions/CloakQuest3r.git
     ```
