@@ -173,10 +173,14 @@ Contributions and feature requests are welcome! If you encounter any issues or h
 -->
 <h4 align="center"> ‼️ Other Useful Tools 🤓 </h4> 
 
-[R4ven](https://github.com/spyboy-productions/r4ven) Track Someone's Location Over The Internet
+[R4ven](https://github.com/spyboy-productions/r4ven) Track Someone's Location Over The Internet.
 
 [Facad1ng](https://github.com/spyboy-productions/Facad1ng) is a URL masking tool designed to help you Hide Phishing URLs.
 
-[Omnisci3nt](https://github.com/spyboy-productions/omnisci3nt) is a powerful web reconnaissance tool 
+[Omnisci3nt](https://github.com/spyboy-productions/omnisci3nt) is a powerful web reconnaissance tool.
+
+[WebSecProbe](https://github.com/spyboy-productions/WebSecProbe) bypass 403.
+
+[Valid8Proxy](https://github.com/spyboy-productions/Valid8Proxy) fetches, validates, and stores working proxies.
 
 <h4 align="center"> If you find this GitHub repo useful, please consider giving it a star! ⭐️ </h4> 
