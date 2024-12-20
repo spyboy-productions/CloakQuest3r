@@ -203,7 +203,7 @@ def read_config():
         "securitytrails_api_key": "your_api_key"}
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
-        print(f"\n[!] {Fore.RED}Please add your {C}SecurityTrails{Fore.RED} API Key in config.ini file{Fore.RESET}")
+        print(f"\n[!] {C}SecurityTrails{Fore.RED} API Key not found in config.ini file{Fore.RESET}")
     else:
         config.read('config.ini')
         APIKEY = config['DEFAULT']['securitytrails_api_key']
