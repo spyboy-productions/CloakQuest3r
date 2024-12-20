@@ -129,7 +129,7 @@ def find_subdomains_with_ssl_analysis(domain, wordlist_path=None, timeout=20):
             if response.status_code == 200:
                 with subdomains_lock:
                     subdomains_found.append(subdomain_url)
-                    print(f"{Fore.GREEN}Subdomain Found \u2514\u27A4: {subdomain_url}{Fore.RESET}")
+                    print(f"{Fore.GREEN}Subdomain Found \u2514\u27A4 {subdomain_url}{Fore.RESET}")
         except requests.exceptions.RequestException as e:
             if "Max retries exceeded with url" in str(e):
                 pass
