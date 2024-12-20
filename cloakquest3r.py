@@ -229,7 +229,7 @@ def securitytrails_historical_ip_address(domain):
                 print(f"{Y}  \u2514\u27A4 {C}Last Seen: {G}{last_seen}{W}")
                 print(f"{Y}  \u2514\u27A4 {C}Organizations: {G}{organizations}{W}")
         except:
-            print(f"{Fore.RED}Error extracting Historical IP Address information from SecurityTrails{Fore.RESET}")
+            print(f"{Fore.RED}Error extracting Historical IP Address information from SecurityTrails.\nHave you added API Key in config.ini?{Fore.RESET}")
             None
     else:
         print(f"\n{Fore.RED}Please add your {C}SecurityTrails{Fore.RED} API Key in config.ini file{Fore.RESET}")
