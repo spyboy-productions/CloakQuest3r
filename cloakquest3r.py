@@ -102,10 +102,10 @@ def get_ssl_certificate_info(host):
 
         common_name = certificate.subject.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
         issuer = certificate.issuer.get_attributes_for_oid(x509.NameOID.COMMON_NAME)[0].value
-        validity_start = certificate.not_valid_before
-        validity_end = certificate.not_valid_after
-        #validity_start = certificate.not_valid_before_utc
-        #validity_end = certificate.not_valid_after_utc
+        #validity_start = certificate.not_valid_before
+        #validity_end = certificate.not_valid_after
+        validity_start = certificate.not_valid_before_utc
+        validity_end = certificate.not_valid_after_utc
 
         return {
             "Common Name": common_name,
