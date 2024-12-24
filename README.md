@@ -142,6 +142,8 @@ Upon initial execution of the script, it generates a config.ini file with the fo
 securitytrails_api_key = your_api_key
 ```
 
+Go to `CloakQuest3r directory` and add your `API key` in `config.ini` file.
+
 Subsequently, the script attempts to retrieve data from the SecurityTrails API. If the retrieval fails due to reasons such as quota limitations or site unavailability, the corresponding function is gracefully skipped.
 
 <!-- 
