@@ -80,7 +80,13 @@ With CloakQuest3r, you can confidently evaluate website security, unveil hidden 
 3. Subdomain Variation: While the tool scans subdomains, it doesn't guarantee that all subdomains' A records will point to the primary host. Some subdomains may also be protected by Cloudflare.
 
 ```
-<h4 align="center"> This tool is a Proof of Concept and is for Educational Purposes Only. </h4> 
+> [!IMPORTANT]
+> <h4> This tool is a Proof of Concept and is for Educational Purposes Only. </h4>
+
+> [!CAUTION] 
+> **Please use this responsibly and ethically.**
+> <h4> DISCLAIMER </h4> 
+> It is possible to use CloakQuest3r for nefarious purposes. It merely illustrates what adept attackers are capable of. Defenders have a responsibility to consider such attacks and protect their users from them. Using CloakQuest3r should only be done with the written permission of the targeted parties for legitimate penetration testing assignments.
 
 ---
 
