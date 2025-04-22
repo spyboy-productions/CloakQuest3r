@@ -1,4 +1,21 @@
 <h4 align="center"> If you find this GitHub repo useful, please consider giving it a star! ⭐️ </h4> 
+
+<p align="center">
+  <a href="https://github.com/spyboy-productions/CloakQuest3r/stargazers">
+    <img src="https://img.shields.io/github/stars/spyboy-productions/CloakQuest3r?color=yellow&style=for-the-badge" alt="Stars">
+  </a>
+  <a href="https://github.com/spyboy-productions/CloakQuest3r/network/members">
+    <img src="https://img.shields.io/github/forks/spyboy-productions/CloakQuest3r?color=orange&style=for-the-badge" alt="Forks">
+  </a>
+  <a href="https://github.com/spyboy-productions/CloakQuest3r/issues">
+    <img src="https://img.shields.io/github/issues/spyboy-productions/CloakQuest3r?style=for-the-badge" alt="Issues">
+  </a>
+  <a href="https://github.com/spyboy-productions/CloakQuest3r/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/spyboy-productions/CloakQuest3r?style=for-the-badge" alt="License">
+  </a>
+</p>
+
+
 <p align="center">
     <a href="https://spyboy.in/twitter">
       <img src="https://img.shields.io/badge/-TWITTER-black?logo=twitter&style=for-the-badge">
